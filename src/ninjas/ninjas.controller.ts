@@ -23,28 +23,21 @@ export class NinjasController {
 
   @Get(':id')
   getOneNinja(@Param('id') id: string) {
-    return { name: 'Naruto', id };
+    return this.ninjasService.getNinja(+id);
   }
 
   @Post()
   createNinja(@Body() createNinjaDto: CreateNinjaDto) {
-    return {
-      name: createNinjaDto.name,
-    };
+    return this.ninjasService.createNinja(createNinjaDto);
   }
 
   @Put(':id')
   updateNinja(@Param('id') id: string, @Body() updateNinjaDto: UpdateNinjaDto) {
-    return {
-      id,
-      newName: updateNinjaDto.name,
-    };
+    return this.ninjasService.updateNinja(+id, updateNinjaDto);
   }
 
   @Delete(':id')
   deleteNinja(@Param('id') id: string) {
-    return {
-      id,
-    };
+    return this.ninjasService.removeNinja(+id);
   }
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateNinjaDto } from './dto/create-ninja.dto';
+import { UpdateNinjaDto } from './dto/update-ninja.dto';
 
 @Injectable()
 export class NinjasService {
@@ -27,6 +28,31 @@ export class NinjasService {
   }
 
   createNinja(createNinjaDto: CreateNinjaDto) {
-    this.ninjas.push(createNinjaDto);
+    const newNinja = {
+      ...createNinjaDto,
+      id: Date.now(),
+    };
+    this.ninjas.push(newNinja);
+
+    return newNinja;
+  }
+
+  updateNinja(id: number, updateNinjaDto: UpdateNinjaDto) {
+    this.ninjas = this.ninjas.map((ninja) => {
+      if (ninja.id === id) {
+        return { ...ninja, ...updateNinjaDto };
+      }
+
+      return ninja;
+    });
+    return this.getNinja(id);
+  }
+
+  removeNinja(id: number) {
+    const toBeRemoved = this.getNinja(id);
+
+    this.ninjas = this.ninjas.filter((ninja) => ninja.id !== id);
+
+    return toBeRemoved;
   }
 }
