@@ -1,4 +1,5 @@
 export class CreateNinjaDto {
   name: string;
-  type: 'fast' | 'slow';
+  id: number;
+  weapon: 'stars' | 'nunchunks';
 }
